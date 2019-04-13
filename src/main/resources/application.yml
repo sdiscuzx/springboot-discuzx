@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    username: root
+    password: ""
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/discuzx?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC&allowMultiQueries=true&autoReconnect=true
+
+  session:
+    store-type: none
+
+mybatis:
+  mapper-locations: classpath*:mybatis/mysql/discuzx/**/*.xml
+  type-aliases-package: com.xstudio.discuzx.model
+
+#logging:
+#  file: classpath:/log4j2.yml
