@@ -1,6 +1,7 @@
 package com.xstudio.utils;
 
 
+import com.xstudio.config.AppUserDetails;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

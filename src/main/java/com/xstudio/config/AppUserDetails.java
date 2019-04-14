@@ -1,4 +1,4 @@
-package com.xstudio.utils;
+package com.xstudio.config;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;

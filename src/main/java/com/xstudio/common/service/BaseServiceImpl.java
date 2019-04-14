@@ -3,7 +3,7 @@ package com.xstudio.common.service;
 import com.github.miemiedev.mybatis.paginator.domain.Order;
 import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
 import com.github.miemiedev.mybatis.paginator.domain.PageList;
-import com.xstudio.utils.AppUserDetails;
+import com.xstudio.config.AppUserDetails;
 import com.xstudio.utils.ContextUtil;
 import com.xstudio.utils.EnError;
 import com.xstudio.utils.Msg;

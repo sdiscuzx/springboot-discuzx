@@ -3,6 +3,7 @@ package com.xstudio.discuzx.model;
 import com.xstudio.common.service.BaseModelObject;
 import java.io.Serializable;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  *
@@ -10,6 +11,7 @@ import lombok.Data;
  * This class corresponds to the database table pre_common_member
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class CommonMember extends BaseModelObject implements Serializable {
     /**
      * Database Column Remarks:
