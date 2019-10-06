@@ -1,16 +1,20 @@
 package com.xstudio;
 
-import com.xstudio.utils.ContextUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 
-@SpringBootApplication
+@SpringBootApplication(
+        exclude = {
+                DataSourceAutoConfiguration.class,
+                DataSourceTransactionManagerAutoConfiguration.class
+        }
+)
 public class DiscuzxApplication {
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext run = SpringApplication.run(DiscuzxApplication.class, args);
-        ContextUtil.setContext(run);
+        SpringApplication.run(DiscuzxApplication.class, args);
     }
 
 }
