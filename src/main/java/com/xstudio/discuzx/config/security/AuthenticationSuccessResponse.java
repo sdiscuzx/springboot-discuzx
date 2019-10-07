@@ -12,4 +12,10 @@ import java.io.Serializable;
 public class AuthenticationSuccessResponse implements Serializable {
     private static final long serialVersionUID = -8147988546129513305L;
     private String username;
+
+    private String status = "ok";
+
+    private String currentAuthority = "user";
+
+    private String type = "account";
 }
