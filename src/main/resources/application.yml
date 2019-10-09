@@ -52,4 +52,4 @@ spring:
 mybatis:
   mapper-locations: classpath*:mybatis/mysql/**/**.xml
   type-aliases-package: com.xstudio.discuzx.ultrax.model
-
+debug: true
