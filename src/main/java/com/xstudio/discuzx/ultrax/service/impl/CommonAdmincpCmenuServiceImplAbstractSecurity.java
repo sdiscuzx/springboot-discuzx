@@ -20,7 +20,7 @@ public class CommonAdmincpCmenuServiceImplAbstractSecurity extends AbstractSecur
     private CommonAdmincpCmenuMapper commonAdmincpCmenuMapper;
 
     @Override
-    public IMybatisPageHelperDao<CommonAdmincpCmenu, Short> getRepositoryDao() {
+    public IMybatisPageHelperDao getRepositoryDao() {
         return this.commonAdmincpCmenuMapper;
     }
 

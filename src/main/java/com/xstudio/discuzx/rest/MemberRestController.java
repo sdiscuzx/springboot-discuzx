@@ -1,12 +1,10 @@
 package com.xstudio.discuzx.rest;
 
+import com.xstudio.core.Msg;
+import com.xstudio.core.service.IAbstractService;
 import com.xstudio.discuzx.ultrax.model.CommonMember;
 import com.xstudio.discuzx.ultrax.service.ICommonMemberService;
-import com.xstudio.spring.security.AppUserDetails;
-import com.xstudio.spring.security.SecurityContextUtil;
 import com.xstudio.spring.web.rest.AbstractBaseRestController;
-import com.xstudio.tool.service.IAbstractService;
-import com.xstudio.tool.utils.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,10 +28,10 @@ public class MemberRestController extends AbstractBaseRestController<CommonMembe
     @GetMapping("currentUser")
     public Msg<String> currentUser() {
         Msg<String> msg = new Msg<>();
-        AppUserDetails currentUser = SecurityContextUtil.getCurrentUser();
-        if (null != currentUser) {
-            msg.setData(currentUser.getUsername());
-        }
+//        AppUserDetails currentUser = SecurityContextUtil.getCurrentUser();
+//        if (null != currentUser) {
+//            msg.setData(currentUser.getUsername());
+//        }
         return msg;
     }
 

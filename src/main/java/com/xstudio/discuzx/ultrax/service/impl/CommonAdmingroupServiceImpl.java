@@ -20,7 +20,7 @@ public class CommonAdmingroupServiceImpl extends AbstractSecurityMybatisPageHelp
     private CommonAdmingroupMapper commonAdmingroupMapper;
 
     @Override
-    public IMybatisPageHelperDao<CommonAdmingroup, Short> getRepositoryDao() {
+    public IMybatisPageHelperDao getRepositoryDao() {
         return this.commonAdmingroupMapper;
     }
 

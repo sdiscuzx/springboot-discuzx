@@ -1,18 +1,21 @@
 package com.xstudio.discuzx.rest;
 
-import com.github.miemiedev.mybatis.paginator.domain.PageList;
+import com.xstudio.core.Msg;
+import com.xstudio.core.service.IAbstractService;
+import com.xstudio.discuzx.rest.vo.CommonSettingVo;
 import com.xstudio.discuzx.ultrax.model.CommonSetting;
 import com.xstudio.discuzx.ultrax.service.ICommonSettingService;
+import com.xstudio.spring.mybatis.antdesign.PageResponse;
+import com.xstudio.spring.mybatis.pagehelper.PageBounds;
 import com.xstudio.spring.web.rest.AbstractBaseRestController;
-import com.xstudio.tool.service.IAbstractService;
-import com.xstudio.tool.utils.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.*;
 
 /**
  * @author xiaobiao
@@ -20,7 +23,23 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("api/common/setting")
-public class CommonSettingRestController extends AbstractBaseRestController<CommonSetting, String> {
+public class CommonSettingRestController extends AbstractBaseRestController<CommonSettingVo, String> {
+    /**
+     * 站点信息配置
+     */
+    private List<String> basic = Arrays.asList("bbname",
+            "sitename",
+            "siteurl",
+            "adminemail",
+            "site_qq",
+            "icp",
+            "boardlicensed",
+            "statcode",
+            "bbclosed",
+            "closedreason",
+            "closedallowactivation");
+
+    private List<String> access = Arrays.asList("inviteconfig");
 
     @Autowired
     private ICommonSettingService commonSettingService;
@@ -30,19 +49,51 @@ public class CommonSettingRestController extends AbstractBaseRestController<Comm
         return commonSettingService;
     }
 
-    @GetMapping("map")
-    public Msg<Map<String, String>> map() {
-        Msg<Map<String, String>> msg = new Msg<>();
-        Msg<PageList<CommonSetting>> pageListMsg = commonSettingService.selectAllByExample(new CommonSetting());
+    @Override
+    public Msg<CommonSettingVo> update(CommonSettingVo record, HttpServletRequest request, HttpServletResponse response) {
+        PageResponse<CommonSetting> list = new PageResponse<>();
+        Enumeration<String> parameterNames = request.getParameterNames();
+        CommonSetting commonSetting;
+        while (parameterNames.hasMoreElements()) {
+            String key = parameterNames.nextElement();
+            commonSetting = new CommonSetting();
+            commonSetting.setSkey(key);
+            commonSetting.setSvalue(request.getParameter(key));
+            list.add(commonSetting);
+        }
+        Msg<PageResponse<CommonSetting>> pageListMsg = commonSettingService.batchUpdateByPrimaryKeySelective(list);
 
-        if (Boolean.TRUE.equals(pageListMsg.getSuccess())) {
-            PageList<CommonSetting> data = pageListMsg.getData();
+        return new Msg<>(pageListMsg.getCode(), pageListMsg.getMsg());
+    }
+
+    @GetMapping("basic")
+    public Msg<Map<String, String>> basic() {
+        return map(basic);
+    }
+
+
+    @GetMapping("access")
+    public Msg<Map<String, String>> access() {
+        return map(access);
+    }
+
+    private Msg<Map<String, String>> map(List<String> filters) {
+        Msg<Map<String, String>> msg = new Msg<>();
+        Msg<PageResponse<CommonSetting>> pageListMsg = commonSettingService.selectByExampleWithBlobsByPager(new CommonSetting(), new PageBounds(0, 100000000));
+
+        if (Boolean.TRUE.equals(pageListMsg.isSuccess())) {
+            PageResponse<CommonSetting> data = pageListMsg.getData();
             Map<String, String> map = new HashMap<>(data.size());
             for (CommonSetting datum : data) {
-                map.put(datum.getSkey(), datum.getSvalue());
+                if (filters.contains(datum.getSkey())) {
+                    map.put(datum.getSkey(), datum.getSvalue());
+                }
             }
+
+            msg.setData(map);
         }
 
         return msg;
     }
+
 }

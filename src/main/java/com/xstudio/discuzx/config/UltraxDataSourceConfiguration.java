@@ -1,13 +1,15 @@
 package com.xstudio.discuzx.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
+import com.alibaba.druid.wall.WallConfig;
+import com.alibaba.druid.wall.WallFilter;
 import com.xstudio.spring.mybatis.SqlSessionFactoryUtil;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 /**
@@ -29,14 +32,22 @@ public class UltraxDataSourceConfiguration {
     /**
      * 将MybatisConfig类中初始化的对象注入进来
      */
-    @Autowired
-    private ConfigurationCustomizer customizer;
+    @Resource(name = "mybatisConfigurationCustomizer")
+    private ConfigurationCustomizer configurationCustomizer;
 
     @Primary
     @Bean(name = "ultraxDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.druid.ultrax")
     public DruidDataSource ultraxDataSource() {
-        return new DruidDataSource();
+        DruidDataSource build = DruidDataSourceBuilder.create().build();
+        // 设置数据源允许执行多条语句
+        WallConfig wallConfig = new WallConfig();
+        wallConfig.setMultiStatementAllow(true);
+
+        WallFilter wallFilter = new WallFilter();
+        wallFilter.setConfig(wallConfig);
+        build.getProxyFilters().add(wallFilter);
+        return build;
     }
 
     @Bean("ultraxSqlSessionFactory")
@@ -44,7 +55,7 @@ public class UltraxDataSourceConfiguration {
         return SqlSessionFactoryUtil.getSqlSessionFactory(dataSource
                 , "classpath:/mybatis/mysql/ultrax/**/**.xml"
                 , "com.xstudio.discuzx.ultrax.model"
-                , customizer);
+                , configurationCustomizer);
     }
 
     @Bean(name = "discuzxTransactionManager")

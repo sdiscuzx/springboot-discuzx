@@ -20,7 +20,7 @@ public class CommonAdmincpGroupServiceImplAbstractSecurity extends AbstractSecur
     private CommonAdmincpGroupMapper commonAdmincpGroupMapper;
 
     @Override
-    public IMybatisPageHelperDao<CommonAdmincpGroup, Short> getRepositoryDao() {
+    public IMybatisPageHelperDao getRepositoryDao() {
         return this.commonAdmincpGroupMapper;
     }
 

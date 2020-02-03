@@ -6,4 +6,5 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface CommonUsergroupFieldMapper extends IMybatisPageHelperDao<CommonUsergroupField, Short> {
+
 }

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  * service implements for table pre_common_setting
  * 
  * @author mybatis generator
- * @version Mon Oct 07 21:10:14 CST 2019
+ * @version Fri Oct 11 14:44:30 CST 2019
  */
 @Service
 public class CommonSettingServiceImpl extends AbstractSecurityMybatisPageHelperServiceImpl<CommonSetting, String> implements ICommonSettingService {
@@ -21,7 +21,7 @@ public class CommonSettingServiceImpl extends AbstractSecurityMybatisPageHelperS
     private CommonSettingMapper commonSettingMapper;
 
     @Override
-    public IMybatisPageHelperDao<CommonSetting, String> getRepositoryDao() {
+    public IMybatisPageHelperDao getRepositoryDao() {
         return this.commonSettingMapper;
     }
 

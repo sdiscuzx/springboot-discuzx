@@ -7,7 +7,7 @@ import com.xstudio.spring.mybatis.pagehelper.IMybatisPageHelperService;
  * service for table pre_common_setting
  * 
  * @author mybatis generator
- * @version Mon Oct 07 21:10:14 CST 2019
+ * @version Fri Oct 11 14:44:30 CST 2019
  */
 public interface ICommonSettingService extends IMybatisPageHelperService<CommonSetting, String> {
 }

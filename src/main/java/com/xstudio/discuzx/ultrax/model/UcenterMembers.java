@@ -1,7 +1,8 @@
 package com.xstudio.discuzx.ultrax.model;
 
-import com.xstudio.tool.utils.BaseModelObject;
 import java.io.Serializable;
+
+import com.xstudio.core.BaseModelObject;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

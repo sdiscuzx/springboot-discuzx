@@ -20,7 +20,7 @@ public class CommonMemberStatusServiceImpl extends AbstractSecurityMybatisPageHe
     private CommonMemberStatusMapper commonMemberStatusMapper;
 
     @Override
-    public IMybatisPageHelperDao<CommonMemberStatus, Integer> getRepositoryDao() {
+    public IMybatisPageHelperDao getRepositoryDao() {
         return this.commonMemberStatusMapper;
     }
 

@@ -46,6 +46,14 @@ spring:
         stat-view-servlet:
           login-username: admin
           login-password: adminxxxxxxx
+        filter:
+          wall:
+            config:
+              multi-statement-allow: true
+      filter:
+        wall:
+          config:
+            multi-statement-allow: true
   thymeleaf:
     cache: false
 

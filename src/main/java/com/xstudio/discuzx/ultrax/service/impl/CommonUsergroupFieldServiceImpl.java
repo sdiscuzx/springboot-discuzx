@@ -20,7 +20,7 @@ public class CommonUsergroupFieldServiceImpl extends AbstractSecurityMybatisPage
     private CommonUsergroupFieldMapper commonUsergroupFieldMapper;
 
     @Override
-    public IMybatisPageHelperDao<CommonUsergroupField, Short> getRepositoryDao() {
+    public IMybatisPageHelperDao getRepositoryDao() {
         return this.commonUsergroupFieldMapper;
     }
 

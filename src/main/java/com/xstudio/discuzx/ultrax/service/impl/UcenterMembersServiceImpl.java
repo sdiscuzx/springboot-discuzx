@@ -1,11 +1,11 @@
 package com.xstudio.discuzx.ultrax.service.impl;
 
+import com.xstudio.core.IdWorker;
 import com.xstudio.discuzx.config.AbstractSecurityMybatisPageHelperServiceImpl;
 import com.xstudio.discuzx.ultrax.mapper.UcenterMembersMapper;
 import com.xstudio.discuzx.ultrax.model.UcenterMembers;
 import com.xstudio.discuzx.ultrax.service.IUcenterMembersService;
 import com.xstudio.spring.mybatis.pagehelper.IMybatisPageHelperDao;
-import com.xstudio.tool.utils.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ public class UcenterMembersServiceImpl extends AbstractSecurityMybatisPageHelper
     private UcenterMembersMapper ucenterMembersMapper;
 
     @Override
-    public IMybatisPageHelperDao<UcenterMembers, Long> getRepositoryDao() {
+    public IMybatisPageHelperDao getRepositoryDao() {
         return this.ucenterMembersMapper;
     }
 
