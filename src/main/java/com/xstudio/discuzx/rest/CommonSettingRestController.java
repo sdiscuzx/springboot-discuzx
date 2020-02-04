@@ -6,7 +6,6 @@ import com.xstudio.discuzx.rest.vo.CommonSettingVo;
 import com.xstudio.discuzx.ultrax.model.CommonSetting;
 import com.xstudio.discuzx.ultrax.service.ICommonSettingService;
 import com.xstudio.spring.mybatis.antdesign.PageResponse;
-import com.xstudio.spring.mybatis.pagehelper.PageBounds;
 import com.xstudio.spring.web.rest.AbstractBaseRestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,15 +76,15 @@ public class CommonSettingRestController extends AbstractBaseRestController<Comm
         return map(access);
     }
 
-    private Msg<Map<String, String>> map(List<String> filters) {
+    private Msg<Map<String, String>> map(List<String> skeys) {
         Msg<Map<String, String>> msg = new Msg<>();
-        Msg<PageResponse<CommonSetting>> pageListMsg = commonSettingService.selectByExampleWithBlobsByPager(new CommonSetting(), new PageBounds(0, 100000000));
+        Msg<List<CommonSetting>> pageListMsg = commonSettingService.selectBySkeys(skeys);
 
         if (Boolean.TRUE.equals(pageListMsg.isSuccess())) {
-            PageResponse<CommonSetting> data = pageListMsg.getData();
+            List<CommonSetting> data = pageListMsg.getData();
             Map<String, String> map = new HashMap<>(data.size());
             for (CommonSetting datum : data) {
-                if (filters.contains(datum.getSkey())) {
+                if (skeys.contains(datum.getSkey())) {
                     map.put(datum.getSkey(), datum.getSvalue());
                 }
             }

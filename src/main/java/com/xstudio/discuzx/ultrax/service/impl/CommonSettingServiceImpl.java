@@ -1,11 +1,18 @@
 package com.xstudio.discuzx.ultrax.service.impl;
 
+import com.xstudio.core.ErrorConstant;
+import com.xstudio.core.Msg;
 import com.xstudio.discuzx.config.AbstractSecurityMybatisPageHelperServiceImpl;
 import com.xstudio.discuzx.ultrax.mapper.CommonSettingMapper;
 import com.xstudio.discuzx.ultrax.model.CommonSetting;
 import com.xstudio.discuzx.ultrax.service.ICommonSettingService;
 import com.xstudio.spring.mybatis.pagehelper.IMybatisPageHelperDao;
+
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
+
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,9 +34,18 @@ public class CommonSettingServiceImpl extends AbstractSecurityMybatisPageHelperS
 
     @Override
     public void setDefaults(CommonSetting record) {
-        // todo
-        if(record.getSkey() == null || "".equals(record.getSkey())) {
-            record.setSkey(UUID.randomUUID().toString());
+
+    }
+
+    @Override
+    public Msg<List<CommonSetting>> selectBySkeys(List<String> skeys) {
+        Msg<List<CommonSetting>> msg = new Msg<>();
+        List<CommonSetting> list = commonSettingMapper.selectBySkeys(skeys);
+        if (CollectionUtils.isEmpty(list)){
+            msg.setResult(ErrorConstant.NO_MATCH, ErrorConstant.NO_MATCH_MSG);
+            return msg;
         }
+        msg.setData(list);
+        return msg;
     }
 }

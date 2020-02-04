@@ -18,4 +18,12 @@ public interface CommonSettingMapper extends IMybatisPageHelperDao<CommonSetting
      */
     @Override
     List<CommonSetting> selectByExampleWithBLOBs(@Param("example") CommonSetting record, @Param("pageBounds") RowBounds pageBounds);
+
+    /**
+     * 按 skeys查询
+     *
+     * @param skeys skey字段
+     * @return {@link CommonSetting}
+     */
+    List<CommonSetting> selectBySkeys(@Param("skeys") List<String> skeys);
 }
