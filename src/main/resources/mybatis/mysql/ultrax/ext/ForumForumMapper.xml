@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xstudio.discuzx.ultrax.mapper.ForumForumMapper">
+
+    <resultMap id="ForumVoMap" type="com.xstudio.discuzx.rest.vo.ForumVo" extends="BaseResultMap">
+        <association property="field"
+                     javaType="com.xstudio.discuzx.ultrax.model.ForumForumfield"
+                     resultMap="com.xstudio.discuzx.ultrax.mapper.ForumForumfieldMapper.ResultMapWithBLOBs"/>
+    </resultMap>
+
+    <select id="forums" resultMap="ForumVoMap">
+        SELECT
+        ff.*,
+        f.*
+        FROM
+        pre_forum_forum f
+        LEFT JOIN pre_forum_forumfield ff USING ( fid )
+        WHERE
+        f.STATUS &lt;&gt; '3'
+        ORDER BY
+        f.type &lt;&gt; 'group', f.displayorder
+    </select>
+
+    <resultMap id="ModeratorsMap" type="com.xstudio.discuzx.rest.vo.ForumModeratorVo" extends="com.xstudio.discuzx.ultrax.mapper.ForumModeratorMapper.BaseResultMap">
+        <association property="member" resultMap="com.xstudio.discuzx.ultrax.mapper.CommonMemberMapper.BaseResultMap" />
+    </resultMap>
+    <select id="moderators" resultMap="ModeratorsMap">
+        select m.*, fm.* from pre_forum_moderator fm
+        left join pre_common_member m using ( uid )
+        where fm.fid = #{fid,jdbcType=INTEGER}
+        ORDER BY fm.inherited, fm.displayorder
+    </select>
+</mapper>

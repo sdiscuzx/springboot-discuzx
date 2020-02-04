@@ -2,6 +2,7 @@ package com.xstudio.discuzx.ultrax.model;
 
 import java.io.Serializable;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.xstudio.core.BaseModelObject;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -58,6 +59,7 @@ public class CommonMember extends BaseModelObject<Long> implements Serializable 
      *
      * @mbg.generated
      */
+    @JSONField(serialize = false)
     private String password;
 
     /**
