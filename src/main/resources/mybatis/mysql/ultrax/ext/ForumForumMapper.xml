@@ -6,7 +6,15 @@
         <association property="field"
                      javaType="com.xstudio.discuzx.ultrax.model.ForumForumfield"
                      resultMap="com.xstudio.discuzx.ultrax.mapper.ForumForumfieldMapper.ResultMapWithBLOBs"/>
+        <association property="nav" javaType="com.xstudio.discuzx.ultrax.model.CommonNav"
+                     column="fid"
+                     select="forumNav" >
+        </association>
     </resultMap>
+
+    <select id="forumNav" resultMap="com.xstudio.discuzx.ultrax.mapper.CommonNavMapper.BaseResultMap">
+        select * from pre_common_nav where identifier = #{fid,jdbcType=INTEGER} AND navtype=0 AND type=5
+    </select>
 
     <select id="forums" resultMap="ForumVoMap">
         SELECT

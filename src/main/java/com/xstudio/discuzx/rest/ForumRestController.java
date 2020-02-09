@@ -3,9 +3,7 @@ package com.xstudio.discuzx.rest;
 import com.xstudio.core.Msg;
 import com.xstudio.discuzx.rest.vo.ForumModeratorVo;
 import com.xstudio.discuzx.rest.vo.ForumVo;
-import com.xstudio.discuzx.ultrax.model.CommonMember;
 import com.xstudio.discuzx.ultrax.model.ForumForum;
-import com.xstudio.discuzx.ultrax.model.ForumModerator;
 import com.xstudio.discuzx.ultrax.service.IForumForumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +27,11 @@ public class ForumRestController {
     @GetMapping("forums")
     public Msg<List<ForumVo>> forums() {
         return forumForumService.forums();
+    }
+
+    @PostMapping("forums")
+    public Msg<ForumForum> forums(ForumVo forum) {
+        return forumForumService.updateByPrimaryKeySelective(forum);
     }
 
     @PostMapping("forums/edit")

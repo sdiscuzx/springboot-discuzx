@@ -2,7 +2,12 @@ package com.xstudio.discuzx.config;
 
 
 import com.xstudio.core.BaseModelObject;
+import com.xstudio.core.Msg;
+import com.xstudio.spring.mybatis.antdesign.PageResponse;
 import com.xstudio.spring.mybatis.pagehelper.AbstractMybatisPageHelperServiceImpl;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author xiaobiao
@@ -17,5 +22,11 @@ public abstract class AbstractSecurityMybatisPageHelperServiceImpl<T extends Bas
 //        }
 //        return currentUser.getUserId();
         return null;
+    }
+
+    @Override
+    public Msg<PageResponse<T>> selectAllByExample(T record) {
+        List<String> orders = new ArrayList<>();
+        return selectAllByExample(record, orders);
     }
 }

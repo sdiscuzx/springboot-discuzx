@@ -2,6 +2,7 @@ package com.xstudio.discuzx.ultrax.mapper;
 
 import com.xstudio.discuzx.rest.vo.ForumModeratorVo;
 import com.xstudio.discuzx.rest.vo.ForumVo;
+import com.xstudio.discuzx.ultrax.model.CommonNav;
 import com.xstudio.discuzx.ultrax.model.ForumForum;
 import com.xstudio.spring.mybatis.pagehelper.IMybatisPageHelperDao;
 import org.apache.ibatis.annotations.Mapper;
@@ -17,6 +18,7 @@ public interface ForumForumMapper extends IMybatisPageHelperDao<ForumForum, Inte
      */
     List<ForumVo> forums();
 
+    CommonNav forumNav(Integer fid);
     /**
      * 版主列表
      *

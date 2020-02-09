@@ -1,5 +1,6 @@
 package com.xstudio.discuzx.rest.vo;
 
+import com.xstudio.discuzx.ultrax.model.CommonNav;
 import com.xstudio.discuzx.ultrax.model.ForumForum;
 import com.xstudio.discuzx.ultrax.model.ForumForumfield;
 import lombok.Data;
@@ -18,6 +19,11 @@ public class ForumVo extends ForumForum {
      * 版块扩展信息
      */
     private ForumForumfield field;
+
+    /**
+     * 自定义导航栏
+     */
+    private CommonNav nav;
 
     /**
      * 子节点
