@@ -33,9 +33,12 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
 
     implementation 'com.xstudio.spring:mybatis-pagehelper:1.0.0-SNAPSHOT'
     implementation 'com.xstudio.spring:web:1.0.0-SNAPSHOT'
+    implementation 'com.xstudio.spring:api-gateway:1.0.0-SNAPSHOT'
 //    implementation 'com.xstudio:spring-security:1.0.0-SNAPSHOT'
 
     compileOnly 'org.projectlombok:lombok'

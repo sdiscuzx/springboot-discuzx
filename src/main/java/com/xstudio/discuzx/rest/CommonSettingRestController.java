@@ -5,6 +5,9 @@ import com.xstudio.core.service.IAbstractService;
 import com.xstudio.discuzx.rest.vo.CommonSettingVo;
 import com.xstudio.discuzx.ultrax.model.CommonSetting;
 import com.xstudio.discuzx.ultrax.service.ICommonSettingService;
+import com.xstudio.spring.api.gateway.annotation.ApiGateway;
+import com.xstudio.spring.api.gateway.annotation.ApiGatewayStrategy;
+import com.xstudio.spring.api.gateway.strategy.IpStrategy;
 import com.xstudio.spring.mybatis.antdesign.PageResponse;
 import com.xstudio.spring.web.rest.AbstractBaseRestController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author xiaobiao
@@ -66,6 +70,11 @@ public class CommonSettingRestController extends AbstractBaseRestController<Comm
     }
 
     @GetMapping("basic")
+    @ApiGateway(
+            strategies = {
+                    @ApiGatewayStrategy(type = IpStrategy.class, times = 2, unit = TimeUnit.SECONDS)
+            }
+    )
     public Msg<Map<String, String>> basic() {
         return map(basic);
     }
