@@ -67,7 +67,3 @@ spring:
 mybatis:
   mapper-locations: classpath*:mybatis/mysql/**/**.xml
   type-aliases-package: com.xstudio.discuzx.ultrax.model
-
-logging:
-  level:
-    root: info

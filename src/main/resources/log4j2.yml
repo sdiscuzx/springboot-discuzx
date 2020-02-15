@@ -1,0 +1,52 @@
+Configuration:
+  properties:
+    property:
+      - name: log.level.console
+        value: debug
+      - name: CONTAINER_NAME
+        value: ""
+      - name: log.path
+        value: /logs/${env:CONTAINER_NAME}
+      - name: project.name
+        value: discuzx
+      - name: FILE_LOG_PATTERN
+        value: "%clr{[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%5t] [%5p] %40.40c{1.} %4L: %m%n%xwEx}"
+  Appenders:
+    Console:
+      name: CONSOLE
+      target: SYSTEM_OUT
+      PatternLayout:
+        Pattern: ${FILE_LOG_PATTERN}
+    RollingFile:
+      - name: ROLLING_FILE
+        ignoreExceptions: false
+        fileName: ${log.path}/${project.name}.log
+        filePattern: "${log.path}/$${date:yyyy-MM}/${project.name}-%d{yyyy-MM-dd}-%i.gz"
+        PatternLayout:
+          pattern: ${FILE_LOG_PATTERN}
+        Policies:
+          SizeBasedTriggeringPolicy:
+            size: "1024 MB"
+          TimeBasedTriggeringPolicy:
+            modulate: true
+            interval: 1
+        DefaultRolloverStrategy:
+          max: 1000
+    Failover:
+      name: Failover
+      primary: RollingFile
+      failovers:
+        AppenderRef:
+          ref: ROLLING_FILE
+  Loggers:
+    Root:
+      level: ${log.level.console}
+      AppenderRef:
+        - ref: CONSOLE
+        - ref: ROLLING_FILE
+    Logger:
+      - name: org.springframework.core.serializer.support.SerializationFailedException
+        level: error
+        additivity: false
+        AppenderRef:
+          - ref: CONSOLE

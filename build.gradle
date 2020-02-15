@@ -1,9 +1,10 @@
 plugins {
-    id 'org.springframework.boot' version '2.1.8.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'org.springframework.boot' version '2.2.4.RELEASE'
     id 'java'
     id 'maven'
 }
+
+apply plugin: 'io.spring.dependency-management'
 
 group = 'com.xstudio'
 version = '0.0.1-SNAPSHOT'
@@ -29,12 +30,26 @@ repositories {
 ext {
 }
 
+configurations {
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-undertow'
+    implementation('org.springframework.boot:spring-boot-starter-web'){
+        exclude group:'org.springframework.boot', module:'spring-boot-starter-tomcat'
+    }
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-aop'
+    // using log4j2
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml'
+    // end using log4j2
 
     implementation 'com.xstudio.spring:mybatis-pagehelper:1.0.0-SNAPSHOT'
     implementation 'com.xstudio.spring:web:1.0.0-SNAPSHOT'
