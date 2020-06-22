@@ -1,0 +1,82 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.6.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+}
+
+group = 'com.xstudio'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+}
+
+repositories {
+    mavenLocal()
+    maven{
+        url "http://maven.aliyun.com/nexus/content/groups/public"
+    }
+    mavenCentral()
+}
+
+//ext {
+//    set('vaadinVersion', "14.1.27")
+//}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-integration'
+    implementation 'org.springframework.boot:spring-boot-starter-quartz'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+//    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-undertow'
+    implementation ('org.springframework.boot:spring-boot-starter-web') {
+        exclude group:'org.springframework.boot', module:'spring-boot-starter-tomcat'
+    }
+//    implementation 'com.vaadin:vaadin-spring-boot-starter'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.2'
+    implementation 'org.springframework.session:spring-session-data-redis'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'mysql:mysql-connector-java'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation 'org.springframework.integration:spring-integration-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+
+    implementation 'com.xstudio:core:1.0.0-SNAPSHOT'
+    implementation 'com.xstudio.web:antdesign:1.0.0-SNAPSHOT'
+    implementation 'com.xstudio.spring:mybatis-pagehelper:1.0.1-SNAPSHOT'
+
+    // using log4j2
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml'
+    // end using log4j2
+
+    // druid
+    implementation group: 'com.alibaba', name: 'druid-spring-boot-starter', version: '1.1.22'
+}
+
+dependencyManagement {
+//    imports {
+//        mavenBom "com.vaadin:vaadin-bom:${vaadinVersion}"
+//    }
+}
+
+test {
+    useJUnitPlatform()
+}

@@ -1,0 +1,12 @@
+server:
+  servlet:
+    context-path: /discuzx
+spring:
+  profiles:
+    active: dev
+  datasource:
+    druid:
+      filter:
+        wall:
+          config:
+            multi-statement-allow: true
